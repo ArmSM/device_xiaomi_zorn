@@ -4,7 +4,7 @@
 # SPDX-License-Identifier: Apache-2.0
 #
 
-COMMON_PATH := device/xiaomi/sm8650-common
+DEVICE_PATH := device/xiaomi/zorn
 
 BUILD_BROKEN_DUP_RULES := true
 BUILD_BROKEN_ELF_PREBUILT_PRODUCT_COPY_FILES := true
@@ -62,7 +62,7 @@ TARGET_NO_BOOTLOADER := true
 TARGET_USES_UEFI := true
 
 # Filesystem
-TARGET_FS_CONFIG_GEN := $(COMMON_PATH)/configs/config.fs
+TARGET_FS_CONFIG_GEN := $(DEVICE_PATH)/configs/config.fs
 
 # Display
 TARGET_SCREEN_DENSITY := 480
@@ -98,7 +98,7 @@ BOARD_INCLUDE_DTB_IN_BOOTIMG := true
 BOARD_RAMDISK_USE_LZ4 := true
 BOARD_USES_GENERIC_KERNEL_IMAGE := true
 
-ifeq ($(TARGET_DEVICE),houji,shennong,aurora)
+ifeq ($(TARGET_DEVICE),zorn)
 TARGET_KERNEL_SOURCE := kernel/xiaomi/sm8650
 TARGET_KERNEL_CONFIG := \
     gki_defconfig \
@@ -138,9 +138,9 @@ TARGET_KERNEL_EXT_MODULES := \
     qcom/opensource/mm-sys-kernel/ubwcp \
     nxp/opensource/driver \
 
-BOARD_SYSTEM_KERNEL_MODULES_LOAD := $(strip $(shell cat $(COMMON_PATH)/modules.load.system_dlkm))
+BOARD_SYSTEM_KERNEL_MODULES_LOAD := $(strip $(shell cat $(KERNEL_PATH)/modules.load.system_dlkm))
 SYSTEM_KERNEL_MODULES := $(BOARD_SYSTEM_KERNEL_MODULES_LOAD)
-BOOT_KERNEL_MODULES := $(strip $(shell cat $(COMMON_PATH)/modules.load.recovery))
+BOOT_KERNEL_MODULES := $(strip $(shell cat $(KERNEL_PATH)/modules.load.recovery))
 BOOT_KERNEL_MODULES += \
     q6_pdr_dlkm.ko \
     q6_notifier_dlkm.ko \
@@ -150,9 +150,9 @@ BOOT_KERNEL_MODULES += \
     adsp_loader_dlkm.ko \
     qti_battery_charger.ko \
     qrng_dlkm.ko
-BOARD_VENDOR_KERNEL_MODULES_LOAD := $(strip $(shell cat $(COMMON_PATH)/modules.load.vendor_dlkm))
-BOARD_VENDOR_RAMDISK_KERNEL_MODULES_LOAD := $(strip $(shell cat $(COMMON_PATH)/modules.load.first_stage))
-BOARD_VENDOR_RAMDISK_RECOVERY_KERNEL_MODULES_LOAD  := $(strip $(shell cat $(COMMON_PATH)/modules.load.recovery))
+BOARD_VENDOR_KERNEL_MODULES_LOAD := $(strip $(shell cat $(KERNEL_PATH)/modules.load.vendor_dlkm))
+BOARD_VENDOR_RAMDISK_KERNEL_MODULES_LOAD := $(strip $(shell cat $(KERNEL_PATH)/modules.load.first_stage))
+BOARD_VENDOR_RAMDISK_RECOVERY_KERNEL_MODULES_LOAD  := $(strip $(shell cat $(KERNEL_PATH)/modules.load.recovery))
 endif
 
 # Metadata
@@ -181,19 +181,19 @@ BOARD_USES_QCOM_HARDWARE := true
 TARGET_BOARD_PLATFORM := pineapple
 
 # Properties
-TARGET_ODM_PROP += $(COMMON_PATH)/configs/properties/odm.prop
-TARGET_PRODUCT_PROP += $(COMMON_PATH)/configs/properties/product.prop
-TARGET_SYSTEM_PROP += $(COMMON_PATH)/configs/properties/system.prop
-TARGET_SYSTEM_EXT_PROP += $(COMMON_PATH)/configs/properties/system_ext.prop
-TARGET_VENDOR_PROP += $(COMMON_PATH)/configs/properties/vendor.prop
+TARGET_ODM_PROP += $(DEVICE_PATH)/configs/properties/odm.prop
+TARGET_PRODUCT_PROP += $(DEVICE_PATH)/configs/properties/product.prop
+TARGET_SYSTEM_PROP += $(DEVICE_PATH)/configs/properties/system.prop
+TARGET_SYSTEM_EXT_PROP += $(DEVICE_PATH)/configs/properties/system_ext.prop
+TARGET_VENDOR_PROP += $(DEVICE_PATH)/configs/properties/vendor.prop
 
 # Power
-TARGET_POWERHAL_MODE_EXT := $(COMMON_PATH)/power/power-mode.cpp
+TARGET_POWERHAL_MODE_EXT := $(DEVICE_PATH)/power/power-mode.cpp
 
 # Recovery
 BOARD_EXCLUDE_KERNEL_FROM_RECOVERY_IMAGE := true
 TARGET_RECOVERY_PIXEL_FORMAT := RGBX_8888
-TARGET_RECOVERY_FSTAB := $(COMMON_PATH)/rootdir/etc/fstab.qcom
+TARGET_RECOVERY_FSTAB := $(DEVICE_PATH)/rootdir/etc/fstab.qcom
 TARGET_USERIMAGES_USE_EXT4 := true
 TARGET_USERIMAGES_USE_F2FS := true
 
@@ -202,8 +202,9 @@ ENABLE_VENDOR_RIL_SERVICE := true
 
 # Sepolicy
 include device/qcom/sepolicy_vndr/SEPolicy.mk
-SYSTEM_EXT_PRIVATE_SEPOLICY_DIRS += $(COMMON_PATH)/sepolicy/private
-BOARD_VENDOR_SEPOLICY_DIRS += $(COMMON_PATH)/sepolicy/vendor
+SYSTEM_EXT_PRIVATE_SEPOLICY_DIRS += $(DEVICE_PATH)/sepolicy/private
+SYSTEM_EXT_PUBLIC_SEPOLICY_DIRS += $(DEVICE_PATH)/sepolicy/public
+BOARD_VENDOR_SEPOLICY_DIRS += $(DEVICE_PATH)/sepolicy/vendor
 
 # Security patch level
 BOOT_SECURITY_PATCH := 2024-02-29
@@ -211,21 +212,22 @@ VENDOR_SECURITY_PATCH := $(BOOT_SECURITY_PATCH)
 
 # VINTF
 DEVICE_FRAMEWORK_COMPATIBILITY_MATRIX_FILE := \
-    $(COMMON_PATH)/configs/vintf/compatibility_matrix.device.xml \
-    $(COMMON_PATH)/configs/vintf/compatibility_matrix.xiaomi.xml \
-    hardware/qcom-caf/common/vendor_framework_compatibility_matrix.xml
+    $(DEVICE_PATH)/configs/vintf/compatibility_matrix.device.xml \
+    $(DEVICE_PATH)/configs/vintf/compatibility_matrix.xiaomi.xml \
+    hardware/qcom-caf/common/vendor_framework_compatibility_matrix.xml \
+    vendor/lineage/config/device_framework_matrix.xml
 
 DEVICE_FRAMEWORK_MANIFEST_FILE += \
-    $(COMMON_PATH)/configs/vintf/framework_manifest.xml
+    $(DEVICE_PATH)/configs/vintf/framework_manifest.xml
 
 DEVICE_MATRIX_FILE := \
-    $(COMMON_PATH)/configs/vintf/compatibility_matrix.xml \
+    $(DEVICE_PATH)/configs/vintf/compatibility_matrix.xml \
     hardware/qcom-caf/common/compatibility_matrix.xml
 
 DEVICE_MANIFEST_SKUS := pineapple
 DEVICE_MANIFEST_PINEAPPLE_FILES := \
-    $(COMMON_PATH)/configs/vintf/manifest_xiaomi.xml \
-    $(COMMON_PATH)/configs/vintf/manifest_pineapple.xml \
+    $(DEVICE_PATH)/configs/vintf/manifest_xiaomi.xml \
+    $(DEVICE_PATH)/configs/vintf/manifest_pineapple.xml \
     hardware/qcom-caf/sm8650/audio/primary-hal/configs/common/manifest_non_qmaa.xml \
     hardware/qcom-caf/sm8650/audio/primary-hal/configs/common/manifest_non_qmaa_extn.xml
 
@@ -276,4 +278,4 @@ WIFI_HIDL_UNIFIED_SUPPLICANT_SERVICE_RC_ENTRY := true
 WPA_SUPPLICANT_VERSION := VER_0_8_X
 
 # Inherit from the proprietary version
--include vendor/xiaomi/sm8650-common/BoardConfigVendor.mk
+-include vendor/xiaomi/zorn/BoardConfigVendor.mk
