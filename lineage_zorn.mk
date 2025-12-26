@@ -21,6 +21,11 @@ PRODUCT_BRAND := POCO
 PRODUCT_MODEL := 24117RK2CG
 PRODUCT_MANUFACTURER := xiaomi
 
+# Sakura flags
+SAKURA_OFFICIAL := true
+SAKURA_MAINTAINER := ArmSM
+SAKURA_BUILD_TYPE := gapps
+
 PRODUCT_BUILD_PROP_OVERRIDES += \
     BuildDesc=$(call normalize-path-list, "zorn zorn 15 AQ3A.240829.003 OS2.0.202.0.VOKMIXM release-keys")
 
