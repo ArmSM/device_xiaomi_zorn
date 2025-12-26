@@ -26,6 +26,9 @@ SAKURA_OFFICIAL := true
 SAKURA_MAINTAINER := ArmSM
 SAKURA_BUILD_TYPE := gapps
 
+# bootanimation
+TARGET_BOOT_ANIMATION_RES := 1440
+
 PRODUCT_BUILD_PROP_OVERRIDES += \
     BuildDesc=$(call normalize-path-list, "zorn zorn 15 AQ3A.240829.003 OS2.0.202.0.VOKMIXM release-keys")
 
