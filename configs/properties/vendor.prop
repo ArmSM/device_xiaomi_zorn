@@ -404,6 +404,7 @@ persist.vendor.qfp=true
 ro.vendor.qspm.enable=true
 
 # Radio
+persist.dbg.ims_volte_enable=1
 persist.dbg.volte_avail_ovr=1
 persist.dbg.vt_avail_ovr=1
 persist.dbg.wfc_avail_ovr=1
@@ -415,6 +416,7 @@ persist.vendor.radio.ecc_cloud=true
 persist.vendor.radio.enableadvancedscan=true
 persist.vendor.radio.procedure_bytes=SKIP
 persist.vendor.radio.sib16_support=1
+persist.vendor.data.iwlan.enable=true
 ro.telephony.default_network=33,33
 
 # RCS
