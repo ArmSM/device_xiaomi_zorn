@@ -5,7 +5,8 @@
 //
 
 runtime_resource_overlay {
-    name: "CarrierConfig",
+    name: "CarrierConfigZorn",
+    certificate: "platform",
     vendor: true,
     aaptflags: ["--keep-raw-values"],
 }
