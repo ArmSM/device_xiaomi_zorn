@@ -129,6 +129,14 @@ blob_fixups: blob_fixups_user_type = {
         'vendor/lib64/libqcodec2_core.so',
     ):blob_fixup()
         .add_needed('libcodec2_shim.so'),
+    (
+        'vendor/lib64/libcapiv2uvvendor.so',
+        'vendor/lib64/liblistensoundmodel2vendor.so',
+        'vendor/lib64/libVoiceSdk.so',
+    ): blob_fixup().replace_needed(
+        'libtensorflowlite_c.so',
+        'libtensorflowlite_c_vendor.so',
+    ),
     ('odm/lib64/libaudioroute_ext.so',
      'vendor/lib64/libar-pal.so',
      'vendor/lib64/libagm.so'): blob_fixup()
