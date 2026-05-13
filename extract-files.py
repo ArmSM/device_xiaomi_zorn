@@ -108,7 +108,9 @@ blob_fixups: blob_fixups_user_type = {
         'vendor/etc/media_codecs_pinaepple.xml', 
         'vendor/etc/media_codecs_pinaepple_vendor.xml'
     ): blob_fixup()
-        .regex_replace('.*media_codecs_(google_audio|google_c2|google_telephony|google_video|vendor_audio).*\n', ''),
+        .regex_replace('.*media_codecs_(google_audio|google_c2|google_telephony|google_video|vendor_audio).*\n', '')
+        .regex_replace('</MediaCodecs>','    <Include href="media_codecs_dolby_audio.xml" />')
+        .add_line_if_missing('</MediaCodecs>'),
     'vendor/lib64/vendor.libdpmframework.so': blob_fixup()
         .add_needed('libhidlbase_shim.so')
         .add_needed('libbinder_shim.so'),
