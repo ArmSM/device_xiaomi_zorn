@@ -5,8 +5,8 @@
 //
 
 cc_library_static {
-    name: "libinit_xiaomi_8650",
-    srcs: ["libinit_xiaomi_8650.cpp"],
+    name: "libinit_xiaomi_zorn",
+    srcs: ["libinit_xiaomi_zorn.cpp"],
     recovery_available: true,
     whole_static_libs: ["libbase"],
     include_dirs: [
