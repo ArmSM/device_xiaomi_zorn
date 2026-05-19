@@ -235,6 +235,7 @@ PRODUCT_PACKAGES += \
     android.hardware.graphics.composer3-V2-ndk.vendor \
     android.hardware.graphics.common-V4-ndk.vendor \
     android.hardware.graphics.mapper@4.0-impl-qti-display \
+    android.hardware.graphics.allocator-V2-ndk.vendor \
     init.qti.display_boot.rc \
     init.qti.display_boot.sh \
     libgralloc.qti \
