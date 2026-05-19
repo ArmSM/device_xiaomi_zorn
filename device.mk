@@ -27,8 +27,8 @@ $(call inherit-product, packages/modules/Virtualization/apex/product_packages.mk
 # Add common definitions for Qualcomm
 $(call inherit-product, hardware/qcom-caf/common/common.mk)
 
-# Inherit from hardware dolby (Lunaris AOSP Dolby)
-$(call inherit-product-if-exists, hardware/dolby/dolby.mk)
+# Inherit from hardware dolby (Sony Dolby)
+$(call inherit-product-if-exists, vendor/sony/dolby/sonydolby.mk)
 
 TARGET_HAS_UDFPS := true
 
