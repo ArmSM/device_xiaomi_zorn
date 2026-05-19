@@ -131,6 +131,8 @@ on post-fs
 
 on late-fs
     mount_all /vendor/etc/fstab.qcom --late
+    chmod 0666 /sys/kernel/reserve_pool/pid
+    chown cameraserver camera /sys/kernel/reserve_pool/pid
 
 on post-fs-data
     chmod 0666 /dev/migt
