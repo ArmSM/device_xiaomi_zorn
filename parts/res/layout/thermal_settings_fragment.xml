@@ -1,0 +1,63 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!--
+    parts/res/layout/thermal_settings_fragment.xml
+    Wrapper layout for ThermalSettingsFragment.
+ 
+    WHY THIS FILE EXISTS:
+      PreferenceFragment.onCreateView() generates its own view hierarchy
+      (a preferences RecyclerView). That view never contains R.id.thermal_rv_view.
+      onCreateView() now inflates THIS layout, injects the PreferenceFragment's
+      view into preferences_container, so onViewCreated()'s
+        view.findViewById(R.id.thermal_rv_view)
+      returns a real RecyclerView instead of null.
+ 
+    LAYOUT STRUCTURE:
+      LinearLayout (vertical, full-screen)
+        └─ FrameLayout  id=preferences_container   ← PreferenceFragment's view is
+        │                wrap_content height           injected here at runtime via
+        │                                              onCreateView() in the fragment
+        └─ RecyclerView id=thermal_rv_view          ← the per-app thermal mode list
+                         0dp height, weight=1          (what was crashing before)
+-->
+<LinearLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical">
+ 
+    <!--
+        Preferences host — PreferenceFragment injects its own view here.
+        It contains the MainSwitchPreference (Enable Thermal Profiles switch).
+        wrap_content so it only takes as much height as the switch needs.
+    -->
+    <FrameLayout
+        android:id="@+id/preferences_container"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content" />
+ 
+    <!--
+        App list RecyclerView — this is what onViewCreated() looks for via
+        view.findViewById(R.id.thermal_rv_view).
+        Previously this view did not exist anywhere → NPE at line 99.
+        Now it exists here → fragment works correctly.
+ 
+        layout_weight=1 with layout_height=0dp means it fills all remaining
+        space below the preferences switch.
+    -->
+    <androidx.recyclerview.widget.RecyclerView
+        android:id="@+id/thermal_rv_view"
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_weight="1"
+        android:clipToPadding="false"
+        android:paddingTop="4dp"
+        android:paddingBottom="8dp"
+        android:scrollbars="vertical"
+        android:visibility="gone" />
+    <!--
+        Initial visibility=gone matches the default state where thermal
+        profiles are disabled. onViewCreated() will set VISIBLE or GONE
+        based on mThermalUtils.isEnabled().
+    -->
+ 
+</LinearLayout>

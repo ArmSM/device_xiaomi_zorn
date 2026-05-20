@@ -29,6 +29,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.AdapterView;
 import android.widget.BaseAdapter;
+import android.widget.FrameLayout;
 import android.widget.ImageView;
 import android.widget.ListView;
 import android.widget.SectionIndexer;
@@ -67,15 +68,62 @@ public class ThermalSettingsFragment extends PreferenceFragment
     private RecyclerView mAppsRecyclerView;
     private MainSwitchPreference mMainSwitch;
 
+    // =========================================================================
+    // FIX 1 — Override onCreateView()
+    //
+    // ROOT CAUSE: PreferenceFragment.onCreateView() returns a standard
+    // preference-list view. That view does NOT contain R.id.thermal_rv_view,
+    // so view.findViewById(R.id.thermal_rv_view) in onViewCreated() returned
+    // null → NPE at mAppsRecyclerView.setLayoutManager() (line 99).
+    //
+    // FIX: Inflate our custom wrapper layout (thermal_settings_fragment.xml)
+    // which contains BOTH a container for the preferences AND the
+    // thermal_rv_view RecyclerView. Then inject the PreferenceFragment's
+    // own view (from super.onCreateView) into the preferences_container slot.
+    //
+    // This is the MINIMAL change — zero business logic is altered.
+    // =========================================================================
+    @Override
+    public View onCreateView(LayoutInflater inflater, ViewGroup container,
+                             Bundle savedInstanceState) {
+        // Let PreferenceFragment build its internal preference RecyclerView
+        // (this sets up the preference hierarchy, the MainSwitchPreference, etc.)
+        View prefView = super.onCreateView(inflater, container, savedInstanceState);
+
+        // Inflate our wrapper layout that also contains thermal_rv_view
+        ViewGroup wrapper = (ViewGroup) inflater.inflate(
+                R.layout.thermal_settings_fragment, container, false);
+
+        // Slot the preference view into the top container
+        FrameLayout prefContainer = wrapper.findViewById(R.id.preferences_container);
+        prefContainer.addView(prefView);
+
+        return wrapper;
+    }
+
     @Override
     public void onCreatePreferences(Bundle savedInstanceState, String rootKey) {
         addPreferencesFromResource(R.xml.thermal_settings);
 
         mThermalUtils = ThermalUtils.getInstance(getActivity());
         mMainSwitch = (MainSwitchPreference) findPreference(THERMAL_ENABLE_KEY);
+
+        // =====================================================================
+        // FIX 2 — Null guard in switch listener
+        //
+        // ROOT CAUSE: onCreatePreferences() is called from onActivityCreated(),
+        // which fires BEFORE onViewCreated(). So when mMainSwitch.setChecked()
+        // below triggers the listener immediately, mAppsRecyclerView is still
+        // null → second NPE.
+        //
+        // FIX: Add mAppsRecyclerView != null guard. After onViewCreated() runs,
+        // the RecyclerView is always non-null and the guard is never hit.
+        // =====================================================================
         mMainSwitch.addOnSwitchChangeListener((switchView, isChecked) -> {
             mThermalUtils.setEnabled(isChecked);
-            mAppsRecyclerView.setVisibility(isChecked ? View.VISIBLE : View.GONE);
+            if (mAppsRecyclerView != null) {  // ← ADD THIS NULL CHECK
+                mAppsRecyclerView.setVisibility(isChecked ? View.VISIBLE : View.GONE);
+            }
         });
         mMainSwitch.setChecked(mThermalUtils.isEnabled());
     }
@@ -95,6 +143,8 @@ public class ThermalSettingsFragment extends PreferenceFragment
     public void onViewCreated(final View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
 
+        // Now view is our wrapper layout (thermal_settings_fragment.xml),
+        // which DOES contain R.id.thermal_rv_view → no more NPE.
         mAppsRecyclerView = view.findViewById(R.id.thermal_rv_view);
         mAppsRecyclerView.setLayoutManager(new LinearLayoutManager(getActivity()));
         mAppsRecyclerView.setAdapter(mAllPackagesAdapter);
@@ -168,7 +218,7 @@ public class ThermalSettingsFragment extends PreferenceFragment
             final String sectionIndex;
 
             if (!info.enabled) {
-                sectionIndex = "--"; // XXX
+                sectionIndex = "--";
             } else if (TextUtils.isEmpty(label)) {
                 sectionIndex = "";
             } else {
@@ -351,7 +401,6 @@ public class ThermalSettingsFragment extends PreferenceFragment
             notifyDataSetChanged();
         }
 
-
         @Override
         public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
             final ApplicationsState.AppEntry entry = (ApplicationsState.AppEntry) parent.getTag();
@@ -383,14 +432,6 @@ public class ThermalSettingsFragment extends PreferenceFragment
 
             final int index = Arrays.binarySearch(mPositions, position);
 
-            /*
-             * Consider this example: section positions are 0, 3, 5; the supplied
-             * position is 4. The section corresponding to position 4 starts at
-             * position 3, so the expected return value is 1. Binary search will not
-             * find 4 in the array and thus will return -insertPosition-1, i.e. -3.
-             * To get from that number to the expected value of 1 we need to negate
-             * and subtract 2.
-             */
             return index >= 0 ? index : -index - 2;
         }
 
