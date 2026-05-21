@@ -23,3 +23,6 @@ dontaudit hal_audio_default default_prop:file read;
 
 allow hal_audio_default vendor_miev_device:chr_file rw_file_perms;
 get_prop(hal_audio_default, bluetooth_prop)
+
+allow hal_audio_default default_android_service:service_manager find;
+dontaudit isolated_app content_capture_service:service_manager find;

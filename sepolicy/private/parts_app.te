@@ -60,8 +60,6 @@ allow parts_app vendor_hal_displayfeature_xiaomi_default:binder { call transfer 
 allow parts_app vendor_hal_displayfeature_xiaomi_service:service_manager find;
 allow parts_app vendor_hal_displayfeature_xiaomi_default:service_manager find;
 
-hal_client_domain(parts_app, hal_touchfeature_xiaomi)
-binder_call(parts_app, hal_touchfeature_xiaomi)
 binder_call(parts_app, default_android_hwservice)
 binder_call(parts_app, gpuservice)
 
@@ -73,5 +71,18 @@ allow parts_app proc_stat:file { read open getattr };
 allow parts_app init:unix_stream_socket connectto;
 
 allow parts_app self:netlink_kobject_uevent_socket create_socket_perms_no_ioctl;
+
+# Allow reading default/build props (fixes ThermalUtils sysfs reads + ro.* props)
+get_prop(parts_app, default_prop)
+get_prop(parts_app, build_prop)
+get_prop(parts_app, vendor_default_prop)
+
+# Allow finding suspend_control service (fixes PocketService + TurboCharging wakelocks)
+allow parts_app system_suspend_control_service:service_manager find;
+allow parts_app system_suspend_control_internal_service:service_manager find;
+
+# Allow finding tracing proxy (fixes performance hint code path)
+allow parts_app tracingproxy_service:service_manager find;
+
 # Allow DeviceSettings to get settingsdebug.instant.packages prop
 get_prop(parts_app, settingslib_prop)
