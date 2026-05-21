@@ -4,6 +4,7 @@
 
 # Battery secret
 /(vendor|system/vendor)/bin/batterysecret u:object_r:batterysecret_exec:s0
+/sys/class/qcom-battery(/.*)?    u:object_r:sysfs_battery_supply:s0
 
 # Camera
 /(odm|vendor)/bin/hw/vendor\.qti\.camera\.provider-service_64                 u:object_r:hal_camera_default_exec:s0
@@ -126,3 +127,15 @@
 
 # Process and system statistics files
 /proc/stat u:object_r:proc_stat:s0
+
+# Firmware mount — fixes all -13 (EACCES) firmware load failures
+# GPU, WiFi, ADSP, CDSP, Modem, Camera ICP, IPA, Touch fw, Speaker fw
+/vendor/firmware_mnt(/.*)?                                          u:object_r:vendor_firmware_file:s0
+/vendor/firmware_mnt/image(/.*)?                                    u:object_r:vendor_firmware_file:s0
+/vendor/firmware_mnt/image/kiwi(/.*)?                               u:object_r:vendor_firmware_file:s0
+/vendor/firmware_mnt/image/wlan(/.*)?                               u:object_r:vendor_firmware_file:s0
+
+# Camera CCI sysfs — fixes hal_camera_default denied write cam_cci_io_protect
+/sys/devices/platform/soc/ac15000\.qcom,cci(.*)?                    u:object_r:sysfs_camera:s0
+/sys/devices/platform/soc/ac16000\.qcom,cci(.*)?                    u:object_r:sysfs_camera:s0
+/sys/devices/platform/soc/ac17000\.qcom,cci(.*)?                    u:object_r:sysfs_camera:s0
