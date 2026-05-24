@@ -287,6 +287,16 @@ vendor.wv.oemcrypto.debug.enable_prov40=true
 # FUSE
 persist.sys.fuse.passthrough.enable=true
 
+# Fingerprint HAL — UDFPS auth (third-party app biometric)
+persist.vendor.fingerprint.optical=1
+persist.vendor.fingerprint.dcs.enabled=true
+persist.vendor.sys.fp.fod.support=1
+persist.vendor.sys.fp.transform_id=1
+persist.sys.fod.pos.x=540
+persist.sys.fod.pos.y=1800
+persist.sys.fod.size=120
+vendor.fingerprint.anc=true
+
 # Gatekeeper
 vendor.gatekeeper.disable_spu=true
 vendor.gatekeeper.is_security_level_spu=0
