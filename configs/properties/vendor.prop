@@ -341,6 +341,11 @@ ro.surface_flinger.wcg_composition_dataspace=143261696
 ro.vendor.all_modes.colorpick_adjust=true
 vendor.gralloc.disable_ubwc=0
 
+# Fixes "waitForAllocator() null pointer dereference" in GraphicBuffer
+persist.vendor.gralloc.implementation=4
+persist.vendor.hwc.virtual_display_type=none
+vendor.display.usemulti_resolution_in_videomode=1
+
 # Haptics
 sys.haptic.alert=8,2
 sys.haptic.boundary_spatial=0,2
