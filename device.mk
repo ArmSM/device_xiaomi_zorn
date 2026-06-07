@@ -306,6 +306,9 @@ $(call soong_config_set_bool,lineage_health,charging_control_supports_bypass,fal
 PRODUCT_PACKAGES += \
     vendor.lineage.health-service.default
 
+# Logging
+include $(LOCAL_PATH)/configs/logging.mk
+
 # Media
 PRODUCT_PACKAGES += \
     android.hardware.media.c2@1.2.vendor \
