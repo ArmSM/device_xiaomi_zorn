@@ -14,3 +14,7 @@ set_prop(rild, vendor_system_prop)
 set_prop(rild, vendor_radio_prop)
 set_prop(rild, vendor_ssr_prop)
 set_prop(rild, vendor_usb_prop)
+
+dontaudit {
+  rild
+} default_prop:file r_file_perms;
