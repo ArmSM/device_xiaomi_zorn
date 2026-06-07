@@ -5,6 +5,6 @@
 //
 
 runtime_resource_overlay {
-    name: "FrameworksResXiaomi",
+    name: "SettingsResZorn",
     device_specific: true,
 }

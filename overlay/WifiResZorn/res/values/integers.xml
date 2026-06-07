@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <!-- Indicates the time in milliseconds to wait after creating a P2P interface before treating
+         it as low priority when disconnected, allowing it to be deleted to create other
+         interfaces. A negative value disables this behavior. -->
+    <integer name="config_disconnectedP2pIfaceLowPriorityTimeoutMs">0</integer>
+
+    <!-- integer indicating additional disconnect delay (in ms) after IMS onLost() indication is received -->
+    <integer name="config_wifiDelayDisconnectOnImsLostMs">1000</integer>
+
+    <!-- List of constants to indicate how many failures are needed to temporarily disable a network
+    from auto-connect -->
+    <integer name="config_wifiDisableReasonAssociationRejectionThreshold">5</integer>
+    <integer name="config_wifiDisableReasonAuthenticationFailureThreshold">5</integer>
+    <integer name="config_wifiDisableReasonByWrongPasswordThreshold">2</integer>
+
+    <!-- Integer indicating maximum hardware supported client number of soft ap -->
+    <integer name="config_wifiHardwareSoftapMaxClientCount">32</integer>
+
+    <!-- Integer threshold for max number of WifiConfigurations that can be saved on the device.
+         A value of -1 indicates no limit. If a max number is specified, then under-used configs will
+         be deleted to make room for new configs.-->
+    <integer name="config_wifiMaxNumWifiConfigurations">1000</integer>
+
+    <!-- Interval Multiplier for PNO scan. After not finding any networks for
+         config_wifiPnoScanIterations, PNO will multiply the scan interval by the value
+         configured.-->
+    <integer name="config_wifiPnoScanIntervalMultiplier">6</integer>
+</resources>

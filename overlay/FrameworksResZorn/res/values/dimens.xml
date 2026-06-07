@@ -1,23 +1,56 @@
 <?xml version="1.0" encoding="utf-8"?>
-<!--
-     Copyright (C) 2024 The LineageOS Project
-     SPDX-License-Identifier: Apache-2.0
--->
-<resources xmlns:xliff="urn:oasis:names:tc:xliff:document:1.2">
-    <!-- Height of the status bar.
-         Do not read this dimen directly. Use {@link SystemBarUtils#getStatusBarHeight} instead.
-         -->
-    <dimen name="status_bar_height">124.0px</dimen>
+<resources>
+    <!-- Screen brightness used to dim the screen when the user activity
+         timeout expires.  May be less than the minimum allowed brightness setting
+         that can be set by the user. -->
+    <dimen name="config_screenBrightnessDimFloat">8.54597E-4</dimen>
 
-    <!-- The default height of the status bar used in {@link SystemBarUtils#getStatusBarHeight} to
-         calculate the status bar height. -->
-    <dimen name="status_bar_height_default">@dimen/status_bar_height</dimen>
+    <!-- Default screen brightness setting set.
+         -2 is invalid so setting will resort to int value specified above.
+         Must be in the range specified by minimum and maximum. -->
+    <dimen name="config_screenBrightnessSettingDefaultFloat">0.07496032</dimen>
 
-    <!-- Radius of the software rounded corners at the top of the display in its natural
-        orientation. If zero, the value of rounded_corner_radius is used. -->
-    <dimen name="rounded_corner_radius_top">124.0px</dimen>
+    <!-- Maximum screen brightness allowed by the power manager.
+         -2 is invalid so setting will resort to int value specified above.
+         Set this to 1.0 for maximum brightness range.
+         The user is forbidden from setting the brightness above this level. -->
+    <dimen name="config_screenBrightnessSettingMaximumFloat">1.0</dimen>
+
+    <!-- Minimum screen brightness setting allowed by power manager.
+         -2 is invalid so setting will resort to int value specified above.
+         Set this to 0.0 to allow screen to go to minimal brightness.
+         The user is forbidden from setting the brightness below this level. -->
+    <dimen name="config_screenBrightnessSettingMinimumFloat">8.54597E-4</dimen>
+
+    <!-- Height of a small notification in the status bar -->
+    <dimen name="notification_min_height">106.0dp</dimen>
+
+    <!-- Default paddings for content around the corners. -->
+    <dimen name="rounded_corner_content_padding">50.0px</dimen>
+
+    <!-- Default radius of the software rounded corners. -->
+    <dimen name="rounded_corner_radius">108.0px</dimen>
 
     <!-- Radius of the software rounded corners at the bottom of the display in its natural
         orientation. If zero, the value of rounded_corner_radius is used. -->
-    <dimen name="rounded_corner_radius_bottom">124.0px</dimen>
+    <dimen name="rounded_corner_radius_bottom">108.0px</dimen>
+
+    <!-- Radius of the software rounded corners at the top of the display in its natural
+        orientation. If zero, the value of rounded_corner_radius is used. -->
+    <dimen name="rounded_corner_radius_top">108.0px</dimen>
+
+    <!-- The default height of the status bar used in {@link SystemBarUtils#getStatusBarHeight} to
+         calculate the status bar height. -->
+    <dimen name="status_bar_height_default">115.0px</dimen>
+
+    <!-- Height of the status bar in portrait.
+         Do not read this dimen directly. Use {@link SystemBarUtils#getStatusBarHeight} instead.
+         -->
+    <dimen name="status_bar_height_portrait">115.0px</dimen>
+
+    <!-- System-provided radius for the background view of app widgets. -->
+    <dimen name="system_app_widget_background_radius">16.72998dp</dimen>
+
+    <!-- System-provided radius for inner views on app widgets. -->
+    <dimen name="system_app_widget_inner_radius">8.72998dp</dimen>
 </resources>

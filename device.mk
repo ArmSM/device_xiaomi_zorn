@@ -340,14 +340,11 @@ PRODUCT_COPY_FILES += \
 PRODUCT_ENFORCE_RRO_TARGETS := *
 PRODUCT_PACKAGES += \
     CarrierConfigZorn \
-    FrameworksResXiaomi \
     FrameworksResZorn \
     SystemUIResZorn \
-    SettingsResXiaomi \
+    SettingsResZorn \
     TelephonyResCommon \
-    WifiResCommon \
-    WifiResTarget \
-    WifiResTarget_spf
+    WifiResZorn
 
 # Partitions
 PRODUCT_BUILD_SUPER_PARTITION := false
