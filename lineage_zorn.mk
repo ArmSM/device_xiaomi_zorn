@@ -23,7 +23,7 @@ PRODUCT_MANUFACTURER := xiaomi
 
 # Sakura flags
 SAKURA_OFFICIAL := true
-SAKURA_MAINTAINER := ArmSM║║momenabdulrazekali
+SAKURA_MAINTAINER := ArmSM
 SAKURA_BUILD_TYPE := gapps
 
 # bootanimation
