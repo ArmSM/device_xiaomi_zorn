@@ -6,6 +6,10 @@ type camlog_device, dev_type;
 type migt_dev, dev_type, mlstrustedobject;
 type stmvl53l5_device, dev_type;
 
+# Camera companion
+type cammsger_device, dev_type;
+type camera_intentaware_filesys_driver, dev_type, mlstrustedobject;
+
 # Displayfeature
 type vendor_displayfeature_device, dev_type;
 

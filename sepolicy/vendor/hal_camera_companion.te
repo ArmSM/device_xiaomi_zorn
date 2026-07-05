@@ -1,0 +1,9 @@
+allow system_app cammsger_device:chr_file { ioctl read write getattr open watch watch_reads };
+allow system_server cammsger_device:chr_file { ioctl read write getattr append open watch watch_reads };
+allow platform_app cammsger_device:chr_file { ioctl read write getattr open watch watch_reads };
+allow cameraserver cammsger_device:chr_file { ioctl read write getattr open watch watch_reads };
+allow surfaceflinger cammsger_device:chr_file { ioctl read write getattr open watch watch_reads };
+
+allow system_app camera_intentaware_filesys_driver:chr_file { ioctl read write getattr append open watch watch_reads };
+allow cameraserver camera_intentaware_filesys_driver:chr_file { ioctl read write getattr append open watch watch_reads };
+allow platform_app camera_intentaware_filesys_driver:chr_file { ioctl read write getattr append open watch watch_reads };
