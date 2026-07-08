@@ -540,4 +540,5 @@ PRODUCT_PACKAGES += \
 
 PRODUCT_SYSTEM_PROPERTIES += \
     ro.miui.notch=1 \
-    ro.product.mod_device=zorn
+    ro.product.mod_device=houji_global \
+    debug.camera.compatsdk.enable=true

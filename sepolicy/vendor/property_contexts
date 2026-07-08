@@ -4,7 +4,7 @@ vendor.camera.mipi.error                        u:object_r:vendor_camera_mi_prop
 vendor.video.scene.recognition                  u:object_r:vendor_camera_prop:s0
 persist.vendor.EnableP3ColorSpace               u:object_r:vendor_camera_p3enable_prop:s0
 persist.vendor.XDRVersion                       u:object_r:vendor_camera_prop:s0
-persist.vendor.cameraopt.loglevel               u:object_r:exported_system_prop:s0
+persist.vendor.cameraopt.loglevel               u:object_r:vendor_camera_prop:s0
 
 # Displayfeature
 init.svc.vendor.displayfeatureaidl-hal          u:object_r:vendor_displayfeature_prop:s0
