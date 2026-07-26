@@ -286,6 +286,7 @@ vendor/etc/audio/sku_pineapple/resourcemanager_pineapple_mtp.xml
 
 # Audio firmware
 odm/firmware/aw882xx_acf.bin
+odm/firmware/sipa.bin
 
 # Audio FX modules
 vendor/lib64/soundfx/libasphere.so
