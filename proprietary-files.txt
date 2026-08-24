@@ -3254,3 +3254,5 @@ odm/lib64/libcom.xiaomi.signaltrigger.so
 odm/lib64/libcom.xiaomi.intentaware.so;DISABLE_CHECKELF
 odm/lib64/libmiStereoCalibLib_qual.so
 odm/lib64/libMiStereoFactoryCalibAnalyzeBin_qual.so
+vendor/lib64/vendor.xiaomi.hardware.camera.synthetic-V1-ndk.so;
+vendor/lib64/vendor.xiaomi.hardware.camera.synthetic-impl.so;
